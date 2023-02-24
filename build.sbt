@@ -8,11 +8,22 @@ lazy val root = (project in file("."))
     normalizedName := normalizeName(name.value),
     Compile / mainClass := Some("Main")
   ).dependsOn(boot)
+  .aggregate()
 
 lazy val boot = project
-  .settings(
-    normalizedName := normalizeName(name.value),
-  )
+  .settings(normalizedName := normalizeName(name.value))
+  .dependsOn(shop, http)
+
+lazy val domain = project
+  .settings(normalizedName := normalizeName(name.value))
+
+lazy val http = project.dependsOn(shop)
+
+lazy val iam = project
+
+lazy val persistence = project
+
+lazy val shop = project.dependsOn(domain, persistence)
 
 
 def normalizeName(name: String): String = name.toLowerCase.replace(" ", "-")
