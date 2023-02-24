@@ -1,0 +1,25 @@
+.idea
+target
+
+sbt.json
+
+# Metals
+.metals
+.bloop
+project/metals.sbt
+
+# sonar
+.scannerwork/
+
+# Helm charts
+charts/Chart.lock
+charts/*/Chart.lock
+charts/values*.yaml
+charts/*/values*.yaml
+charts/values*.bak
+charts/*/values*.bak
+target/*
+charts/charts/*
+charts/*/charts
+charts/values.yaml
+charts/*/values.yaml

@@ -1,8 +1,0 @@
-[0m[[0m[0mdebug[0m] [0m[0m> Exec(compile, Some(cc12b5a2-5e0c-4cf5-a814-7c4021c346c4), Some(CommandSource(console0)))[0m
-[0m[[0m[0mdebug[0m] [0m[0mEvaluating tasks: Compile / compile[0m
-[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
-[0m[[0m[0minfo[0m] [0m[0mcompiling 1 Scala source to /Users/anzorighurtchumelia/Desktop/shoping-cart-backend/boot/target/scala-2.13/classes ...[0m
-[0m[[0m[0minfo[0m] [0m[0mNon-compiled module 'compiler-bridge_2.13' for Scala 2.13.5. Compiling...[0m
-[0m[[0m[0minfo[0m] [0m[0m  Compilation completed in 5.229s.[0m
-[0m[[0m[32msuccess[0m] [0m[0mTotal time: 6 s, completed Feb 25, 2023, 12:52:06 AM[0m
-[0m[[0m[0mdebug[0m] [0m[0m> Exec(shell, None, None)[0m
