@@ -37,6 +37,12 @@ lazy val iam = project
 
 lazy val persistence = project
 
-lazy val shop = project.dependsOn(domain, iam, persistence)
+lazy val shop = project.dependsOn(domain, iam, persistence, payment)
+
+lazy val payment = project
+  .settings(
+    scalacOptions ++= List("-Ymacro-annotations", "-Yrangepos", "-Wconf:cat=unused:info"),
+  )
+  .dependsOn(iam)
 
 def normalizeName(name: String): String = name.toLowerCase.replace(" ", "-")
