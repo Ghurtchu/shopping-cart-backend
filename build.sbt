@@ -15,7 +15,10 @@ lazy val boot = project
   .dependsOn(shop, http)
 
 lazy val domain = project
-  .settings(normalizedName := normalizeName(name.value))
+  .settings(
+    normalizedName := normalizeName(name.value),
+    libraryDependencies ++= Dependencies.DomainDependencies
+  )
 
 lazy val http = project.dependsOn(shop)
 
