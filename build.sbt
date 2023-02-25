@@ -37,7 +37,11 @@ lazy val iam = project
 
 lazy val persistence = project
 
-lazy val shop = project.dependsOn(domain, iam, persistence)
+lazy val shop = project.dependsOn(iam, persistence)
+  .settings(
+    organization := org,
+    libraryDependencies ++= Dependencies.Shop.dependencies
+  )
 
 lazy val `health-check` = project.settings(
   libraryDependencies ++= Dependencies.HealthCheck.dependencies

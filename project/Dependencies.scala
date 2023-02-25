@@ -2,7 +2,7 @@ import sbt._
 
 object Dependencies {
 
-  import Other._
+  import Miscellaneous._
 
   object Domain {
     lazy val dependencies: Seq[ModuleID] = Seq(newtype, squants)
@@ -12,12 +12,27 @@ object Dependencies {
     lazy val dependencies: Seq[ModuleID] = Seq(newtype, monocleCore) ++ Circe.circeStack ++ Derevo.derevoStack
   }
 
+  object Shop {
+    lazy val dependencies: Seq[ModuleID] = Cats.catsStack
+  }
+
   object Versions {
     val newtype = "0.4.4"
     val squants = "1.8.3"
     val monocle = "3.1.0"
     val circe = "0.14.2"
     val derevo = "0.13.0"
+    val cats = "2.7.0"
+    val catsEffect = "3.3.12"
+    val catsRetry = "3.1.0"
+  }
+
+  object Cats {
+    val cats = "org.typelevel" %% "cats-core" % Versions.cats
+    val catsEffect = "org.typelevel" %% "cats-effect" % Versions.catsEffect
+    val catsRetry = "com.github.cb372" %% "cats-retry" % Versions.catsRetry
+
+    val catsStack: Seq[ModuleID] = Seq(cats, catsEffect, catsRetry)
   }
 
   object Circe {
@@ -41,10 +56,12 @@ object Dependencies {
     val derevoStack: Seq[ModuleID] = Seq(derevoCore, derevoCats, derevoCirce)
   }
 
-  object Other {
+  object Miscellaneous {
     val newtype = "io.estatico"    %% "newtype"      % Versions.newtype
     val squants = "org.typelevel"  %% "squants"      % Versions.squants
     val monocleCore = "dev.optics" %% "monocle-core" % Versions.monocle
+
+    val all = Seq(newtype, squants, monocleCore)
   }
 
 }
