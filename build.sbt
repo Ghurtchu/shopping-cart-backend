@@ -24,7 +24,7 @@ lazy val domain = project
     normalizedName := normalizeName(name.value),
     scalacOptions ++= List("-Ymacro-annotations", "-Yrangepos", "-Wconf:cat=unused:info"),
     organization := org,
-    libraryDependencies ++= Dependencies.DomainDependencies
+    libraryDependencies ++= Dependencies.Domain.dependencies
   )
 
 lazy val http = project.dependsOn(shop)
@@ -34,6 +34,5 @@ lazy val iam = project
 lazy val persistence = project
 
 lazy val shop = project.dependsOn(domain, persistence)
-
 
 def normalizeName(name: String): String = name.toLowerCase.replace(" ", "-")
