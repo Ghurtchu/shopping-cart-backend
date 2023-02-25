@@ -3,7 +3,7 @@ import sbt._
 object Dependencies {
 
   object Domain {
-    val dependencies: Seq[ModuleID] = Seq(newtype)
+    val dependencies: Seq[ModuleID] = Seq(newtype, squants)
   }
 
   object Versions {

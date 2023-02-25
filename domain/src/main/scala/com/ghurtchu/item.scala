@@ -1,8 +1,9 @@
 package com.ghurtchu
 
-import com.ghurtchu.brand.Brand
-import com.ghurtchu.category.Category
+import com.ghurtchu.brand.{Brand, BrandId}
+import com.ghurtchu.category.{Category, CategoryId}
 import io.estatico.newtype.macros.newtype
+import squants.market.Money
 
 import java.util.UUID
 
@@ -16,8 +17,21 @@ object item {
     uuid: ItemId,
     name: ItemName,
     description: ItemDescription,
-    price: BigDecimal,
+    price: Money,
     brand: Brand,
     category: Category,
+  )
+
+  final case class CreateItem(
+    name: ItemName,
+    description: ItemDescription,
+    price: Money,
+    brandId: BrandId,
+    categoryId: CategoryId,
+  )
+
+  final case class UpdateItem(
+    id: ItemId,
+    price: Money,
   )
 }

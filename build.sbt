@@ -8,8 +8,9 @@ lazy val root = (project in file("."))
   .settings(
     name := "Shopping Cart Backend",
     normalizedName := normalizeName(name.value),
-    Compile / mainClass := Some("Main")
-  ).dependsOn(boot)
+    Compile / mainClass := Some("Main"),
+  )
+  .dependsOn(boot)
   .aggregate()
 
 lazy val boot = project
@@ -24,7 +25,7 @@ lazy val domain = project
     normalizedName := normalizeName(name.value),
     scalacOptions ++= List("-Ymacro-annotations", "-Yrangepos", "-Wconf:cat=unused:info"),
     organization := org,
-    libraryDependencies ++= Dependencies.Domain.dependencies
+    libraryDependencies ++= Dependencies.Domain.dependencies,
   )
 
 lazy val http = project.dependsOn(shop)
