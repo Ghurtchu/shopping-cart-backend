@@ -2,16 +2,49 @@ import sbt._
 
 object Dependencies {
 
+  import Other._
+
   object Domain {
-    val dependencies: Seq[ModuleID] = Seq(newtype, squants)
+    lazy val dependencies: Seq[ModuleID] = Seq(newtype, squants)
+  }
+
+  object HealthCheck {
+    lazy val dependencies: Seq[ModuleID] = Seq(newtype, monocleCore) ++ Circe.circeStack ++ Derevo.derevoStack
   }
 
   object Versions {
     val newtype = "0.4.4"
     val squants = "1.8.3"
+    val monocle = "3.1.0"
+    val circe = "0.14.2"
+    val derevo = "0.13.0"
   }
 
-  val newtype = "io.estatico"   %% "newtype" % Versions.newtype
-  val squants = "org.typelevel" %% "squants" % Versions.squants
+  object Circe {
+    def circe(artifact: String): ModuleID = "io.circe" %% s"circe-$artifact" % Versions.circe
+
+    val circeCore = circe("core")
+    val circeGeneric = circe("generic")
+    val circeParser = circe("parser")
+    val circeRefined = circe("refined")
+
+    val circeStack: Seq[ModuleID] = Seq(circeCore, circeGeneric, circeParser, circeRefined)
+  }
+
+  object Derevo {
+    def derevo(artifact: String): ModuleID = "tf.tofu" %% s"derevo-$artifact" % Versions.derevo
+
+    val derevoCore = derevo("core")
+    val derevoCats = derevo("cats")
+    val derevoCirce = derevo("circe-magnolia")
+
+    val derevoStack: Seq[ModuleID] = Seq(derevoCore, derevoCats, derevoCirce)
+  }
+
+  object Other {
+    val newtype = "io.estatico"    %% "newtype"      % Versions.newtype
+    val squants = "org.typelevel"  %% "squants"      % Versions.squants
+    val monocleCore = "dev.optics" %% "monocle-core" % Versions.monocle
+  }
 
 }
