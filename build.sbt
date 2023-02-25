@@ -15,14 +15,12 @@ lazy val root = (project in file("."))
 
 lazy val boot = project
   .settings(
-    normalizedName := normalizeName(name.value),
     organization := org,
   )
   .dependsOn(shop, http)
 
 lazy val domain = project
   .settings(
-    normalizedName := normalizeName(name.value),
     scalacOptions ++= List("-Ymacro-annotations", "-Yrangepos", "-Wconf:cat=unused:info"),
     organization := org,
     libraryDependencies ++= Dependencies.Domain.dependencies,
@@ -31,9 +29,14 @@ lazy val domain = project
 lazy val http = project.dependsOn(shop)
 
 lazy val iam = project
+  .settings(
+    scalacOptions ++= List("-Ymacro-annotations", "-Yrangepos", "-Wconf:cat=unused:info"),
+    organization := org,
+  )
+  .dependsOn(domain)
 
 lazy val persistence = project
 
-lazy val shop = project.dependsOn(domain, persistence)
+lazy val shop = project.dependsOn(domain, iam, persistence)
 
 def normalizeName(name: String): String = name.toLowerCase.replace(" ", "-")

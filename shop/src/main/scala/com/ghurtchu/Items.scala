@@ -1,7 +1,7 @@
 package com.ghurtchu
 
-import com.ghurtchu.brand.BrandName
-import com.ghurtchu.item._
+import brand.BrandName
+import item._
 
 trait Items[F[_]] {
   def findAll: F[List[Item]]

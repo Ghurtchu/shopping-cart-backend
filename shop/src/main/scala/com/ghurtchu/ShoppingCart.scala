@@ -1,8 +1,8 @@
 package com.ghurtchu
 
-import com.ghurtchu.cart.{Cart, CartTotal, Quantity}
-import com.ghurtchu.item.ItemId
-import com.ghurtchu.user.UserId
+import cart.{Cart, CartTotal, Quantity}
+import item.ItemId
+import user._
 
 trait ShoppingCart[F[_]] {
   def add(
