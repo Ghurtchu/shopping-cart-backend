@@ -3,6 +3,7 @@ package com.ghurtchu
 import cats.MonadThrow
 import cats.syntax.flatMap._
 import cats.syntax.functor._
+import cats.syntax.applicativeError._
 import cats.data.NonEmptyList
 import com.ghurtchu.Checkout.EmptyCartError
 import com.ghurtchu.order.OrderId
@@ -23,7 +24,7 @@ final case class Checkout[F[_]: MonadThrow](
       items <- ensureNonEmpty(cart.items)
       pid <- paymentClient.process(Payment(userId, cart.total, card))
       oid <- orders.create(userId, pid, items, cart.total)
-      _ <- shoppingCart.delete(userId)
+      _ <- shoppingCart.delete(userId).attempt.void
     } yield oid
 
   private def ensureNonEmpty[A](as: List[A]): F[NonEmptyList[A]] =
@@ -31,6 +32,10 @@ final case class Checkout[F[_]: MonadThrow](
       NonEmptyList.fromList(as),
       EmptyCartError,
     )
+
+  private def retry[F[_], A](fa: F[A]): F[A] =
+
+
 }
 
 object Checkout {
