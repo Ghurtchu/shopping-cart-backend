@@ -33,9 +33,6 @@ final case class Checkout[F[_]: MonadThrow](
       EmptyCartError,
     )
 
-  private def retry[F[_], A](fa: F[A]): F[A] =
-
-
 }
 
 object Checkout {

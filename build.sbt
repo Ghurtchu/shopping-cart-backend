@@ -26,7 +26,12 @@ lazy val domain = project
     libraryDependencies ++= Dependencies.Domain.dependencies
   )
 
-lazy val http = project.dependsOn(shop)
+lazy val http = project
+  .settings(
+    organization := org,
+    libraryDependencies ++= Dependencies.Http.dependencies
+  )
+  .dependsOn(shop)
 
 lazy val iam = project
   .settings(

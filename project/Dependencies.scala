@@ -2,18 +2,24 @@ import sbt._
 
 object Dependencies {
 
+  type ModuleIDs = Seq[ModuleID]
+
   import Miscellaneous._
 
   object Domain {
-    lazy val dependencies: Seq[ModuleID] = Seq(newtype, squants)
+    lazy val dependencies: ModuleIDs = Seq(newtype, squants)
   }
 
   object HealthCheck {
-    lazy val dependencies: Seq[ModuleID] = Seq(newtype, monocleCore) ++ Circe.circeStack ++ Derevo.derevoStack
+    lazy val dependencies: ModuleIDs = Seq(newtype, monocleCore) ++ Circe.circeStack ++ Derevo.derevoStack
   }
 
   object Shop {
-    lazy val dependencies: Seq[ModuleID] = Cats.catsStack
+    lazy val dependencies: ModuleIDs = Cats.catsStack
+  }
+
+  object Http {
+    lazy val dependencies: ModuleIDs = Http4s.http4sStack
   }
 
   object Versions {
@@ -25,14 +31,31 @@ object Dependencies {
     val cats = "2.7.0"
     val catsEffect = "3.3.12"
     val catsRetry = "3.1.0"
+    val log4cats = "2.3.1"
+    val http4s = "0.23.1"
+    val http4sJwtAuth = "1.0.0"
   }
 
   object Cats {
-    val cats = "org.typelevel" %% "cats-core" % Versions.cats
-    val catsEffect = "org.typelevel" %% "cats-effect" % Versions.catsEffect
-    val catsRetry = "com.github.cb372" %% "cats-retry" % Versions.catsRetry
+    val cats = "org.typelevel"         %% "cats-core"      % Versions.cats
+    val catsEffect = "org.typelevel"   %% "cats-effect"    % Versions.catsEffect
+    val catsRetry = "com.github.cb372" %% "cats-retry"     % Versions.catsRetry
+    val log4cats = "org.typelevel"     %% "log4cats-slf4j" % Versions.log4cats
 
-    val catsStack: Seq[ModuleID] = Seq(cats, catsEffect, catsRetry)
+    val catsStack: ModuleIDs = Seq(cats, catsEffect, catsRetry, log4cats)
+  }
+
+  object Http4s {
+    def http4s(artifact: String): ModuleID = "org.http4s" %% s"http4s-$artifact" % Versions.http4s
+
+    val http4sDsl = http4s("dsl")
+    val http4sServer = http4s("ember-server")
+    val http4sClient = http4s("ember-client")
+    val http4sCirce = http4s("circe")
+
+    val http4sJwtAuth = "dev.profunktor" %% "http4s-jwt-auth" % Versions.http4sJwtAuth
+
+    val http4sStack: ModuleIDs = Seq(http4sDsl, http4sServer, http4sClient, http4sCirce, http4sJwtAuth)
   }
 
   object Circe {
@@ -43,7 +66,7 @@ object Dependencies {
     val circeParser = circe("parser")
     val circeRefined = circe("refined")
 
-    val circeStack: Seq[ModuleID] = Seq(circeCore, circeGeneric, circeParser, circeRefined)
+    val circeStack: ModuleIDs = Seq(circeCore, circeGeneric, circeParser, circeRefined)
   }
 
   object Derevo {
@@ -53,7 +76,7 @@ object Dependencies {
     val derevoCats = derevo("cats")
     val derevoCirce = derevo("circe-magnolia")
 
-    val derevoStack: Seq[ModuleID] = Seq(derevoCore, derevoCats, derevoCirce)
+    val derevoStack: ModuleIDs = Seq(derevoCore, derevoCats, derevoCirce)
   }
 
   object Miscellaneous {
